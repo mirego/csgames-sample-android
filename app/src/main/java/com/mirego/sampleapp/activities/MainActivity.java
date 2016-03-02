@@ -90,9 +90,16 @@ public class MainActivity extends Activity {
     }
 
     private void displayDate(Date date) {
-        weekDayTextView.setText(DateFormat.format("EEEE", date));
-        dayTextView.setText(DateFormat.format("dd", date));
-        monthTextView.setText(DateFormat.format("MMMM", date));
-        timeTextView.setText(DateFormat.format("HH'h' mm'm' ss's'", date));
+        if (date != null) {
+            weekDayTextView.setText(DateFormat.format("EEEE", date));
+            dayTextView.setText(DateFormat.format("dd", date));
+            monthTextView.setText(DateFormat.format("MMMM", date));
+            timeTextView.setText(DateFormat.format("HH'h' mm'm' ss's'", date));
+        } else {
+            weekDayTextView.setText("");
+            dayTextView.setText("--");
+            monthTextView.setText("");
+            timeTextView.setText("");
+        }
     }
 }
