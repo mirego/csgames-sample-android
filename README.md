@@ -38,11 +38,15 @@ Press on the **Debug** icon, and if you don't already have one, [create a new An
 
 Once the app appears running in your Virtual Device, your environment is ready for the competition.
 
+## Support
+
+If you have questions about the project or encounter any problem while configuring your environment, please don't hesistate to contact the [project author](https://github.com/ebelair) or submit an [issue](https://github.com/mirego/csgames16-sample-android/issues).
+
 ## License
 
 This sample app is © 2016 [Mirego](http://www.mirego.com) and may be freely
 distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause).
-See the [`LICENSE.md`](https://github.com/mirego/csgames16-sample-ios/blob/master/LICENSE.md) file.
+See the [`LICENSE.md`](https://github.com/mirego/csgames16-sample-android/blob/master/LICENSE.md) file.
 
 ## About Mirego
 
