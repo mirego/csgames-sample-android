@@ -1,10 +1,8 @@
-package com.mirego.sampleapp.view;
+package com.mirego.sampleapp.activities;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.view.View;
 import android.widget.TextView;
 
 import com.mirego.sampleapp.R;
@@ -44,9 +42,9 @@ public class MainActivity extends Activity {
 
         ButterKnife.bind(this);
 
-        dataSource.registerObserver(new DataSource.Observer() {
+        dataSource.setRefreshCallback(new DataSource.RefreshCallback() {
             @Override
-            public void didRefresh() {
+            public void onRefreshFinished() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -4,14 +4,13 @@ import java.util.Date;
 
 public interface DataSource {
 
-    interface Observer {
-        void didRefresh();
+    interface RefreshCallback {
+        void onRefreshFinished();
     }
 
     void refreshData();
 
     Date getCurrentDate();
 
-    void registerObserver(Observer observer);
-    void unregisterObserver(Observer observer);
+    void setRefreshCallback(RefreshCallback refreshCallback);
 }

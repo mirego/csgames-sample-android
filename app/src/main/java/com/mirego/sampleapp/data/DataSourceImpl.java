@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -23,7 +21,7 @@ public class DataSourceImpl implements DataSource {
     private OkHttpClient client = new OkHttpClient();
 
     private Date currentDate = null;
-    private List<Observer> observerList = new ArrayList<>();
+    private RefreshCallback refreshCallback = null;
 
     @Override
     public void refreshData() {
@@ -35,7 +33,7 @@ public class DataSourceImpl implements DataSource {
             @Override
             public void onFailure(Call call, IOException e) {
                 currentDate = null;
-                notifyObservers();
+                refreshCallback();
             }
 
             @Override
@@ -45,7 +43,7 @@ public class DataSourceImpl implements DataSource {
                 } catch(ParseException e) {
                     currentDate = null;
                 }
-                notifyObservers();
+                refreshCallback();
             }
         });
     }
@@ -56,21 +54,15 @@ public class DataSourceImpl implements DataSource {
     }
 
     @Override
-    public void registerObserver(Observer observer)
+    public void setRefreshCallback(RefreshCallback refreshCallback)
     {
-        observerList.add(observer);
+        this.refreshCallback = refreshCallback;
     }
 
-    @Override
-    public void unregisterObserver(Observer observer)
+    private void refreshCallback()
     {
-        observerList.remove(observer);
-    }
-
-    private void notifyObservers()
-    {
-        for (Observer observer : observerList) {
-            observer.didRefresh();
+        if (refreshCallback != null) {
+            refreshCallback.onRefreshFinished();
         }
     }
 }
