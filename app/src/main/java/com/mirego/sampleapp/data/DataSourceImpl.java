@@ -1,10 +1,12 @@
 package com.mirego.sampleapp.data;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -14,10 +16,13 @@ import okhttp3.Response;
 
 public class DataSourceImpl implements DataSource {
 
-    private final String TIME_API_URL = "http://www.timeapi.org/utc/now";
-    private final String TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+    private final String TIME_API_URL = "https://script.google.com/macros/s/AKfycbyd5AcbAnWi2Yn0xhFRbyzS4qMq1VucMVgVvhul5XqS9HkAyJY/exec?tz=America/Montreal";
 
-    private DateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
+    // Example: Mon, 12 Mar 2017 09:41:00 -0400
+    private final String TIME_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
+    private final Locale TIME_LOCALE = Locale.ENGLISH;
+
+    private DateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT, TIME_LOCALE);
     private OkHttpClient client = new OkHttpClient();
 
     private Date currentDate = null;
@@ -39,8 +44,11 @@ public class DataSourceImpl implements DataSource {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    currentDate = dateFormat.parse(response.body().string());
-                } catch(ParseException e) {
+                    String jsonData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(jsonData);
+                    String fullDate = jsonObject.getString("fulldate");
+                    currentDate = dateFormat.parse(fullDate);
+                } catch(Exception e) {
                     currentDate = null;
                 }
                 refreshCallback();

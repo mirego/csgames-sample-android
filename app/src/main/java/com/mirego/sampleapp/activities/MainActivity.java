@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends Activity {
@@ -23,16 +23,16 @@ public class MainActivity extends Activity {
     private DataSource dataSource = new DataSourceImpl();
     private Timer timer = new Timer();
 
-    @Bind(R.id.week_day_text_view)
+    @BindView(R.id.week_day_text_view)
     TextView weekDayTextView;
 
-    @Bind(R.id.day_text_view)
+    @BindView(R.id.day_text_view)
     TextView dayTextView;
 
-    @Bind(R.id.month_text_view)
+    @BindView(R.id.month_text_view)
     TextView monthTextView;
 
-    @Bind(R.id.time_text_view)
+    @BindView(R.id.time_text_view)
     TextView timeTextView;
 
     @Override
